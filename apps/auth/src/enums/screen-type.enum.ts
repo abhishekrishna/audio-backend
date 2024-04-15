@@ -1,0 +1,5 @@
+export enum ScreenType {
+  OTP = 'OTP',
+  PASSWORD = 'PASSWORD',
+  GENERATE_PASSWORD = 'GENERATE_PASSWORD',
+}
