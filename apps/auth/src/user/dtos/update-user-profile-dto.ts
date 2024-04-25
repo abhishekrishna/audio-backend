@@ -1,6 +1,4 @@
-import { Type } from 'class-transformer';
-import { IsString, ValidateNested, IsOptional } from 'class-validator';
-import { AddressInfo } from '@app/common/dto/address-info.dto';
+import { IsString, IsOptional } from 'class-validator';
 
 export class UpdateUserProfile {
   @IsString()
@@ -12,9 +10,4 @@ export class UpdateUserProfile {
 
   @IsString()
   lastName: string;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => AddressInfo)
-  addressInfo: AddressInfo;
 }

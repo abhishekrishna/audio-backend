@@ -1,12 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import {
-  IsArray,
-  IsOptional,
-  IsString,
-  IsStrongPassword,
-} from 'class-validator';
-import { UserType } from '../enums/user-type.enum';
-import { Status } from '@app/common/enum/status.enum';
+import { IsOptional, IsString, IsStrongPassword } from 'class-validator';
 
 @Schema({ timestamps: true })
 export class User {
@@ -27,17 +20,6 @@ export class User {
 
   @Prop()
   email: string;
-
-  @Prop({ type: [String] })
-  @IsArray()
-  @IsString({ each: true })
-  userType: UserType[];
-
-  @Prop({ type: String })
-  status: Status;
-
-  @Prop({ default: new Date() })
-  createdAt: Date;
 
   updatedAt: Date;
 

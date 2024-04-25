@@ -17,4 +17,4 @@ import { AdminSchema } from './admin.schema';
   controllers: [AdminController],
   exports: [AdminService],
 })
-export class ChildModule {}
+export class AdminModule {}

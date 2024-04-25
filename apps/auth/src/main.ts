@@ -20,7 +20,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   await app.startAllMicroservices();
   await app.listen(+configService.getOrThrow('APP_PORT'), () => {
-    logger.log(`Server started on http://localhost:${+configService.getOrThrow('APP_PORT')}`);
+    logger.log(
+      `Server started on http://localhost:${+configService.getOrThrow('APP_PORT')}`,
+    );
   });
 }
 bootstrap();

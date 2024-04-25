@@ -1,5 +1,4 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { Public } from '@app/common/decorators/public.decorator';
 import { UserType } from '../user/enums/user-type.enum';
 import { loggingEventType } from './enums/screen-message.enum';
 import { LoggingEventService } from './logging-event.service';
@@ -9,7 +8,6 @@ export class LoggingEventController {
   constructor(private readonly loggingEventService: LoggingEventService) {}
 
   // used by access-token.stategy
-  @Public()
   @Get('accessTokens')
   async accessTokens(
     @Query('userId') userId: string,

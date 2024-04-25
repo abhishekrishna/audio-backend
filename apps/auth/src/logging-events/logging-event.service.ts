@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserType } from '../user/enums/user-type.enum';
-import { LoggingEvent, LoggingEventDocument } from './entities/logging-event.entity';
+import {
+  LoggingEvent,
+  LoggingEventDocument,
+} from './entities/logging-event.entity';
 import { loggingEventType } from './enums/screen-message.enum';
 
 @Injectable()
@@ -12,7 +15,11 @@ export class LoggingEventService {
     private loggingEventModel: Model<LoggingEventDocument>,
   ) {}
 
-  async accessTokens(userId: string, userType: UserType, type?: loggingEventType): Promise<string> {
+  async accessTokens(
+    userId: string,
+    userType: UserType,
+    type?: loggingEventType,
+  ): Promise<string> {
     const loggingEvent = await this.loggingEventModel.findOne({
       userId,
       userType,
@@ -39,10 +46,20 @@ export class LoggingEventService {
         },
       },
     );
-    await this.loggingEventModel.create({ userId, userType, accessToken, type, active: true });
+    await this.loggingEventModel.create({
+      userId,
+      userType,
+      accessToken,
+      type,
+      active: true,
+    });
   }
 
-  async doesTokenExists(userId: string, userType: UserType, accessToken: string): Promise<boolean> {
+  async doesTokenExists(
+    userId: string,
+    userType: UserType,
+    accessToken: string,
+  ): Promise<boolean> {
     const logger = await this.loggingEventModel.findOne({
       userId,
       userType,

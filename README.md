@@ -1,73 +1,51 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+AudioAppBackend
+Tables:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Authors:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+AuthorID (INT, Primary Key)
+Name (VARCHAR(255))
+Bio (TEXT)
+Website (VARCHAR(255))
+Audiobooks:
 
-## Description
+AudiobookID (INT, Primary Key)
+Title (VARCHAR(255))
+Description (TEXT)
+CoverImage (VARCHAR(255))
+AuthorID (INT, Foreign Key references Authors.AuthorID)
+IsComplete (BOOLEAN)
+Episodes:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+EpisodeID (INT, Primary Key)
+AudiobookID (INT, Foreign Key references Audiobooks.AudiobookID)
+Title (VARCHAR(255))
+Duration (INT) (in seconds)
+FilePath (VARCHAR(255)) (path to audio file)
+EpisodeNumber (INT)
+IsFree (BOOLEAN)
+Users:
 
-## Installation
+UserID (INT, Primary Key)
+Username (VARCHAR(255), Unique)
+Email (VARCHAR(255), Unique)
+Password (VARCHAR(255)) (hashed and secured)
+Purchases:
 
-```bash
-$ npm install
-```
+PurchaseID (INT, Primary Key)
+UserID (INT, Foreign Key references Users.UserID)
+EpisodeID (INT, Foreign Key references Episodes.EpisodeID)
+PurchaseDate (DATETIME)
+PlaybackProgress:
 
-## Running the app
+UserID (INT, Foreign Key references Users.UserID)
+EpisodeID (INT, Foreign Key references Episodes.EpisodeID)
+LastPlayedPosition (INT) (in seconds)
+Relationships:
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+One Author can have Many Audiobooks (One-to-Many)
+One Audiobook can have Many Episodes (One-to-Many)
+One User can have Many Purchases (One-to-Many) and Many Playback Progress entries (One-to-Many)
+One Episode can belong to One Audiobook (Many-to-One)
+One Purchase is for One User and One Episode (Many-to-Many)
+One Playback Progress entry is for One User and One Episode (Many-to-Many)
